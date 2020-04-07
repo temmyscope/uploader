@@ -1,6 +1,6 @@
 {
     "name": "sevens/uploader-trait",
-    "description": "A library for accessing, interacting with and manipulating PHP Globals",
+    "description": "A library for file upload.",
     "type": "library",
     "version": "v0.9.0",
     "license": "MIT",
