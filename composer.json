@@ -1,6 +1,6 @@
 {
     "name": "sevens/uploader-trait",
-    "description": "A library for file upload.",
+    "description": "A library for file upload in PHP.",
     "type": "library",
     "version": "v0.9.0",
     "license": "MIT",
