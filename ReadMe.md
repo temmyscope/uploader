@@ -31,11 +31,15 @@ class UserController extends Controller
 		//returns an array containing the status of upload true || false
 		//and the value containig address of uploaded file or error message
 		$upload = $uploader->upload($_FILE['profile_pic']);
+		//or if u want to resize an image file as you upload
+		$upload = $uploader->resize($width, $height)->upload($_FILE['profile_pic']);
 		if ( $upload['status'] === true ) { //upload was successful
 			$file_address = $upload['value'];
 			//These 2 keys are only set when upload is successful and status returns true 
 			$file_size = $upload['size'];
 			$file_type = $upload['type'];
+
+			//do something
 		}else{
 			//You can show the user an error message from $upload['value'];
 		}
