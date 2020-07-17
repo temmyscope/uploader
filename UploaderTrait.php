@@ -28,6 +28,9 @@ trait UploaderTrait{
 
 	public function upload($file, $dim = []): array
 	{
+		if (is_null($file)) {
+			return ['status' => false, 'value' => "No file was sent."];
+		}
 		if($file['size'] > $this->_limit){
 			return ['status' => false, 'value' => "The file limit of ".($this->_limit/1048576)." mb has been exceeded"];
 		}
