@@ -102,7 +102,7 @@ trait UploaderTrait{
 	{
 		$name = basename($name);
 		$type = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-		$target = $this->_dest.Strings::get_unique_name($name).'.'.$type;
+		$target = $this->_dest.'/'.Strings::get_unique_name($name).'.'.$type;
 		return [
 			$target, $type
 		];
