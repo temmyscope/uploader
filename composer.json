@@ -11,8 +11,8 @@
         "sort-packages": true
     },
     "autoload": {
-        "classmap": {
-            "Seven\\File\\UploaderTrait": "UploaderTrait.php"
+        "psr-4": {
+            "Seven\\File\\": "src/"
         }
     },
     "require": {
@@ -27,6 +27,6 @@
         }
     ],
     "keywords": [
-        
+        "file", "uploader", "upload", "image resize"
     ]
 }

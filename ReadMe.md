@@ -1,49 +1,93 @@
+## Seven File Uploader
+	
+	- It is part of the libraries used on the altvel framework project but can be used in any applicable file upload scenario
+
+	- File Uploader a.k.a uploader-trait is developed by Elisha Temiloluwa a.k.a TemmyScope	
+
+	- Developed to make easier the routine of file upload on traditional file servers.
+
+ 
+	- Install using composer
+```
+composer require sevens/uploader-trait
+```
+### Usage: Implementating & Extending
+##
+
+***There are two ways to use this library in your project***
+
+	- One way would be to Implement the UploaderInterface and use the UploaderTrait in your class
 
 ```php
 
-##An Example use case of this trait and how to fuse it right into your model classes is shown below:
+use Seven\File\{UploaderTrait, UploaderInterface};
 
-//import the library into your model class namespace
-use Seven\File\UploaderTrait;
+class Uploader implements UploaderInterface{
 
-
-//setup your model class and the variables (with these names) necessary for the trait
-
-class Uploader
-{
 	use UploaderTrait;
 
-	protected $_dest = __DIR__.'/cdn/';
-	protected $_allowed  = [
-		'jpg' => 'image/jpeg',
-		'png' => 'image/png'
-	];
-	protected $_limit = 5024768; //5mb
+	protected $destination = __DIR__.'/cdn';
+
+	protected $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ];
+
+	protected $sizeLimit =  5024768;
 
 }
+```
 
-//Example Use case
-class UserController extends Controller
-{
-	
-	public function createProfile(Uploader $uploader)
-	{
-		//returns an array containing the status of upload true || false
-		//and the value containig address of uploaded file or error message
-		$upload = $uploader->upload($_FILE['profile_pic']);
-		//or if u want to resize an image file as you upload
-		$upload = $uploader->resize($width, $height)->upload($_FILE['profile_pic']);
-		if ( $upload['status'] === true ) { //upload was successful
-			$file_address = $upload['value'];
-			//These 2 keys are only set when upload is successful and status returns true 
-			$file_size = $upload['size'];
-			$file_type = $upload['type'];
+	- Another way would be to extend the Uploader Class and provide the necessary properties
 
-			//do something
-		}else{
-			//You can show the user an error message from $upload['value'];
-		}
-	}
+***If you don't provide the necessary properties, default values have already being provided in the Uploader Class ***
+
+```php
+
+use Seven\File\Uploader;
+
+class FileUploader extends Uploader{
+
+	protected $destination = __DIR__.'/cdn';
+
+	protected $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ];
+
+	protected $sizeLimit =  5024768;
+
 }
+```	
 
+### Usage: Calling Methods
+##
+
+***There are a couple useful methods to use in this library***
+
+```php
+	$file = new Uploader();
+```
+
+	- Upload $_FILES['image']
+```php
+$file->upload('image'); 
+```
+
+	- To get uploaded file name only
+```php
+$file->name()
+```
+
+	- To get uploaded file address, containing file address and name
+```php
+$file->fullName(); 
+```
+
+	- To get uploaded file type
+```php
+$file->type();
+```
+	- To get uploaded status; returns True if upload was successful
+```php
+$file->status();
+```
+
+	- To get error message; it would be empty if upload status is true
+```php
+$file->statusMessage();
 ```
