@@ -1,6 +1,6 @@
 <?php
 
-namespace Seven\File\Uploader;
+namespace Seven\File;
 
 interface UploaderInterface
 {
