@@ -60,7 +60,7 @@ class FileUploader extends Uploader{
 ***There are a couple useful methods to use in this library***
 
 ```php
-	$file = new Uploader();
+	$file = new FileUploader();
 ```
 
 	- Upload $_FILES['image']
