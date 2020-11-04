@@ -25,13 +25,13 @@ use Seven\File\{UploaderTrait, UploaderInterface};
 
 class Uploader implements UploaderInterface{
 
-	use UploaderTrait;
+ use UploaderTrait;
 
-	protected $destination = __DIR__.'/cdn';
+ protected $destination = __DIR__.'/cdn';
 
-	protected $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ];
+ protected $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ];
 
-	protected $sizeLimit =  5024768;
+ protected $sizeLimit =  5024768;
 
 }
 ```
@@ -45,11 +45,11 @@ use Seven\File\Uploader;
 
 class FileUploader extends Uploader{
 
-	protected $destination = __DIR__.'/cdn';
+ protected $destination = __DIR__.'/cdn';
 
-	protected $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ];
+ protected $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ];
 
-	protected $sizeLimit =  5024768;
+ protected $sizeLimit =  5024768;
 
 }
 ```	
