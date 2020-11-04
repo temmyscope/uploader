@@ -1,8 +1,9 @@
 ## Seven File Uploader
 	
-	- It is part of the libraries used on the altvel framework project but can be used in any applicable file upload scenario
+	- It is part of the libraries used on the altvel framework project but can be used 
+	in any applicable file upload scenario.
 
-	- File Uploader a.k.a uploader-trait is developed by Elisha Temiloluwa a.k.a TemmyScope	
+	- File Uploader a.k.a uploader-trait is developed by Elisha Temiloluwa a.k.a TemmyScope.
 
 	- Developed to make easier the routine of file upload on traditional file servers.
 
@@ -40,7 +41,6 @@ class Uploader implements UploaderInterface{
 ***If you don't provide the necessary properties, default values have already being provided in the Uploader Class ***
 
 ```php
-
 use Seven\File\Uploader;
 
 class FileUploader extends Uploader{
