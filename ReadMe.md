@@ -8,7 +8,7 @@
 
  
 	- Install using composer
-```
+```bash
 composer require sevens/uploader-trait
 ```
 ### Usage: Implementating & Extending
