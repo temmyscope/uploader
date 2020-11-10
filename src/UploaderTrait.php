@@ -3,25 +3,29 @@
 namespace Seven\File;
 
 use Seven\Vars\Strings;
+use Seven\File\UploaderInterface;
 
 /**
- * Should be used in a model class that defines all of the initialised variables
- *
- * @package ModelTrait
- * @author Elisha Temiloluwa a.k.a TemmyScope (temmyscope@protonmail.com)
- **/
+* Should be used in a model class that defines all of the initialised variables
+*
+* @package ModelTrait
+* @author Elisha Temiloluwa a.k.a TemmyScope (temmyscope@protonmail.com)
+*
+*/
 
 trait UploaderTrait
 {
-    protected bool $status = false;
+    protected $status = false;
 
-    protected string $statusMessage = "";
+    protected $statusMessage = "";
 
-    protected ?string $name = null;
+    protected $name = null;
 
-    protected ?string $type = null;
+    protected $type = null;
 
-    protected ?string $fullName = null;
+    protected $fullName = null;
+
+    protected $size;
 
     public function status(): bool
     {
@@ -33,12 +37,12 @@ trait UploaderTrait
         return $this->statusMessage;
     }
 
-    public function name(): mixed
+    public function name()
     {
         return $this->name;
     }
 
-    public function fullName(): mixed
+    public function fullName()
     {
         return $this->fullName;
     }
@@ -48,8 +52,7 @@ trait UploaderTrait
     *
     * @return UploaderInterface
     */
-
-    public function upload(string $file): self
+    public function upload(string $file): UploaderInterface
     {
         $file = $_FILES[$file];
         if (is_null($file['name'])) {
@@ -57,14 +60,14 @@ trait UploaderTrait
             $this->statusMessage = "No file was sent.";
             return $this;
         }
-        if ($file['size'] > $this->_limit) {
+        if ($file['size'] > $this->sizeLimit) {
             $this->status = false;
             $this->statusMessage = "The file limit of " . ($this->sizeLimit / 1048576) . " mb has been exceeded";
             return $this;
         }
 
         [$target, $type] = $this->getNewName($file['name']);
-        
+
         if (empty($file["tmp_name"])) {
             $this->status = false;
             $this->statusMessage = "This file is damaged, use another file.";
@@ -133,10 +136,9 @@ trait UploaderTrait
     *
     * @return bool
     */
-
     private function allowed($type, $mime): bool
     {
-        return ( array_key_exists($type, $this->_allowed) && $this->_allowed[$type] === $mime );
+        return ( array_key_exists($type, $this->allowedTypes) && $this->allowedTypes[$type] === $mime );
     }
 
     /**
@@ -145,12 +147,11 @@ trait UploaderTrait
     *
     * @return array containing target name of file and file type
     */
-
     private function getNewName(string $name): array
     {
         $name = basename($name);
         $type = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-        $name = Strings::get_unique_name($name);
+        $name = Strings::uniqueId($name);
         $this->name = $this->createFileName('', $name, $type);
 
         return [

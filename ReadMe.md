@@ -17,23 +17,18 @@ composer require sevens/uploader-trait
 
 ***There are two ways to use this library in your project***
 
-	- One way would be to Implement the UploaderInterface and use the UploaderTrait in your class
+	- One way would be to call the Uploader constructor
 
 ```php
+use Seven\File\Uploader;
 
-use Seven\File\{UploaderTrait, UploaderInterface};
+$uploader = new Uploader(
+ string $destination = __DIR__.'/cdn', 
+ array $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ],
+ int $sizeLimit =  5024768
+);
 
-class Uploader implements UploaderInterface{
-
- use UploaderTrait;
-
- protected $destination = __DIR__.'/cdn';
-
- protected $allowedTypes = [ 'jpg' => 'image/jpeg', 'png' => 'image/png' ];
-
- protected $sizeLimit =  5024768;
-
-}
+$uploader->upload('image');
 ```
 
 	- Another way would be to extend the Uploader Class and provide the necessary properties
