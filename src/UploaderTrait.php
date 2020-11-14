@@ -48,7 +48,9 @@ trait UploaderTrait
     }
 
     /**
-    * @param array | string $file
+    * upload file;
+    *
+    * @param string $file : the key in the $_FILE globals passed
     *
     * @return UploaderInterface
     */
@@ -132,11 +134,12 @@ trait UploaderTrait
     }
 
     /**
-    * @param
+    * @param string $type
+    * @param string $mime
     *
     * @return bool
     */
-    private function allowed($type, $mime): bool
+    private function allowed(string $type, string $mime): bool
     {
         return ( array_key_exists($type, $this->allowedTypes) && $this->allowedTypes[$type] === $mime );
     }
