@@ -39,7 +39,7 @@ trait UploaderTrait
 
     public function name()
     {
-        return $this->name;
+        return trim($this->name, DIRECTORY_SEPARATOR );
     }
 
     public function fullName()
@@ -56,6 +56,11 @@ trait UploaderTrait
     */
     public function upload(string $file): UploaderInterface
     {
+        if (!isset($_FILES[$file])) {
+            $this->status = false;
+            $this->statusMessage = "No file with the name {$file} was sent.";
+            return $this;
+        }
         $file = $_FILES[$file];
         if (is_null($file['name'])) {
             $this->status = false;
@@ -98,7 +103,7 @@ trait UploaderTrait
     public function imageResize($newWidth, $newHeight)
     {
         $ext = $this->type;
-        $file = $this->name;
+        $file = $this->fullName;
         if (!$this->status) {
             $this->statusMessage = "File was not uploaded.";
             return $this;
@@ -164,7 +169,7 @@ trait UploaderTrait
 
     protected function createFileName(string $directory, string $name, string $extension): string
     {
-        $trueName = rtrim($directory, '/') . $name;
+        $trueName = rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $name;
         return implode('.', [ $trueName, $extension ]);
     }
 }
